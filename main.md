@@ -1,9 +1,9 @@
 # SACANNER PER CARTE COLLEZIONABILI 
 
-# INDICE 
+## INDICE 
 
 - [SACANNER PER CARTE COLLEZIONABILI](#sacanner-per-carte-collezionabili)
-- [INDICE](#indice)
+  - [INDICE](#indice)
   - [!\[\[introduzione\]\]](#introduzione)
   - [Software](#software)
   - [!\[\[Wikosoftware\]\]](#wikosoftware)
