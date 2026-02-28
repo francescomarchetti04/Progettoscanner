@@ -1,6 +1,6 @@
 # Softwarre da installare su wiko
 
-## schema generale e suddivisione package
+## Schema generale e suddivisione package
 
 ```md
 YGOScanner/
