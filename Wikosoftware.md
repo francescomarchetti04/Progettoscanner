@@ -67,9 +67,9 @@ Come si vede il codice è diviso in diversi package
 
 - [Core](#pkg_core)
     > Cuore del SF, centro decisionale
-- Kiosk
+- [Kiosk](#pkg_kiosk)
     >package per mantenere attiva e bloccata la camera
-- Diagnostic
+- [Diagnostic](#pkg_diagnostic)
     >essendo il telefono vecchio e lento meglio avere un sistema di diagnostica
 - [Camera](#pkg_camera)
     > si occopa soltanto di scattare la foto
@@ -79,7 +79,7 @@ Come si vede il codice è diviso in diversi package
     >Modulo che si occupa di salvare in memoria locale e poi definitivamente su database le scansioni
 - [Recognition](#pkg_reco)
     >Si occpua di riconoscere e trasformare in testo i dati rilevati dallo scan della carta
-- Model
+- [Model](#pkg_model)
     >Gestisce i modelli di
      > -*carta*
      > -*stato*
@@ -223,5 +223,59 @@ Gestisce i risultati della scansione in memoria e li salva come sessione.
 #### `SyncQueueManager.java` {#coda}
 
 Gestisce coda file da sincronizzare con PC in un secondo momento.
+
+### Package `kiosk/` {#pkg_kiosk}
+
+Ha 2 calssi. Servono per bloccare il telefono in modalità fotocamera.
+
+- [`KioskManager.java`](#kmanager)
+- [`KioskActivity.java`](#katt)
+
+#### `KioskManager.java`{#kmanager}
+
+Attiva/disattiva modalità kiosk (blocca uscita dall’app).
+
+#### `KioskActivity.java` {#katt}
+
+Versione activity bloccata per uso chiosco.
+
+### Package `model/` {#pkg_model}
+
+Ha 3 calssi. Servono per modellizzare il problema.
+
+- [`CardResult.java`](#card)
+- [`ScannerState.java`](#scanners)
+- [`ScanSession.java`](#session)
+
+#### `CardResult.java`{#card}
+
+Rappresenta una carta riconosciuta (hash, nome, codice, timestamp).
+
+#### `ScannerState.java` {#scanners}
+
+Enum che rappresenta lo stato dello scanner:
+
+- IDLE
+- ACTIVE
+- STOPPED
+
+#### `ScanSession.java` {#session}
+
+Rappresenta una sessione completa di scansioni.
+
+### Package `diagnostic/` {#pkg_diagnostic}
+
+Ha 2 calssi. Servono per modellizzare il problema.
+
+- [`SystemDiagnostics.java`](#sysdiag)
+- [`PerformanceMonitor.java`](#monitor)
+
+#### `SystemDiagnostics.java`{#sysdiag}
+
+Monitora memoria e stato sistema.
+
+#### `PerformanceMonitor.java` {#monitor}
+
+Misura tempo elaborazione frame e performance.
 
 ## Root del telefono {#root}
