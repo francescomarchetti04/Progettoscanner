@@ -9,7 +9,7 @@
 ![[introduzione]]
 
 ## Software 
-![[WikoSoftware]]
+![[Wikosoftware]]
 ![[SoftwarePc]]
+![[softwareEsp32]]
 ![[softwareArduino]]
-![[softwarEsp32]]
