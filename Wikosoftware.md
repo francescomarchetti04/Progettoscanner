@@ -73,7 +73,7 @@ Come si vede il codice è diviso in diversi package
 - Sotrage
     >Modulo che si occupa di salvare in memoria locale e poi definitivamente su database le scansioni
 - Recognition
-    >Si occpua di riconoscere e trasformare in testo i dati rilevati dallo scan della carta 
+    >Si occpua di riconoscere e trasformare in testo i dati rilevati dallo scan della carta
 - Model
     >Gestisce i modelli di *carta*
     
