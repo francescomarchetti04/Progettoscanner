@@ -1,41 +1,121 @@
 package YGOscanner.core;
 
 import android.content.Context;
-import androidx.lifecycle.LifecycleOwner;
+import android.graphics.Bitmap;
 
-import YGOscanner.audio.AudioCaptureModule;
 import YGOscanner.camera.CameraModule;
+import YGOscanner.recognition.ImageNormalizer;
+import YGOscanner.recognition.HashGenerator;
+import YGOscanner.recognition.OcrEngine;
+import YGOscanner.recognition.CardRecognizer;
+import YGOscanner.storage.ScanRepository;
+import YGOscanner.storage.SyncQueueManager;
 import YGOscanner.model.CardResult;
-import YGOscanner.storage.LocalStorageManager;
-import YGOscanner.storage.PendingSyncManager;
+import YGOscanner.model.ScannerState;
+import YGOscanner.watchdog.CameraHealthMonitor;
 
 public class ScannerController {
 
-    private final AudioCaptureModule audioModule;
-    private final CameraModule cameraModule;
-    private final LocalStorageManager storage;
-    private final PendingSyncManager sync;
+    private final Context context;
 
-    public ScannerController(Context context, LifecycleOwner owner) {
+    private CameraModule cameraModule;
+    private ImageNormalizer imageNormalizer;
+    private HashGenerator hashGenerator;
+    private OcrEngine ocrEngine;
+    private CardRecognizer cardRecognizer;
+    private ScanRepository scanRepository;
+    private SyncQueueManager syncQueueManager;
+    private CameraHealthMonitor cameraHealthMonitor;
 
-        storage = new LocalStorageManager(context);
-        sync = new PendingSyncManager(context, storage);
+    private ScannerState scannerState = ScannerState.IDLE;
 
-        cameraModule = new CameraModule(context, owner, this::onCardRecognized);
-        audioModule = new AudioCaptureModule(new TriggerSyncModule(cameraModule));
+    public ScannerController(Context context) {
+        this.context = context;
+
+        cameraModule = new CameraModule(context, this::onFrameCaptured);
+        imageNormalizer = new ImageNormalizer();
+        hashGenerator = new HashGenerator();
+        ocrEngine = new OcrEngine();
+        cardRecognizer = new CardRecognizer();
+        scanRepository = new ScanRepository(context);
+        syncQueueManager = new SyncQueueManager(context);
+        cameraHealthMonitor = new CameraHealthMonitor();
     }
 
-    public void start() {
-        audioModule.start();
+    // =============================
+    // PUBLIC API
+    // =============================
+
+    public void startScanning() {
+        scannerState = ScannerState.ACTIVE;
+        cameraModule.startCamera();
     }
 
-    public void stop() {
-        audioModule.stop();
-        cameraModule.shutdown();
+    public void stopScanning() {
+        scannerState = ScannerState.STOPPED;
+        cameraModule.stopCamera();
     }
 
-    private void onCardRecognized(CardResult result) {
-        storage.saveScan(result);
-        sync.trySyncPending();
+    public boolean isScannerActive() {
+        return scannerState == ScannerState.ACTIVE;
+    }
+
+    public boolean isCameraHealthy() {
+        return cameraHealthMonitor.isCameraAlive();
+    }
+
+    public void restartCamera() {
+        cameraModule.stopCamera();
+        cameraModule.startCamera();
+    }
+
+    public void restartScanner() {
+        stopScanning();
+        startScanning();
+    }
+
+    // =============================
+    // FRAME PIPELINE
+    // =============================
+
+    private void onFrameCaptured(Bitmap bitmap) {
+
+        cameraHealthMonitor.onFrameReceived();
+
+        if (scannerState != ScannerState.ACTIVE) return;
+
+        // 1️⃣ Normalizzazione immagine
+        Bitmap normalized = imageNormalizer.normalize(bitmap);
+
+        // 2️⃣ Generazione hash immagine
+        String hash = hashGenerator.generateHash(normalized);
+
+        // 3️⃣ OCR
+        ocrEngine.recognizeText(normalized, extractedText -> {
+
+            // 4️⃣ Riconoscimento carta
+            CardResult result = cardRecognizer.recognize(hash, extractedText);
+
+            if (result != null) {
+
+                // 5️⃣ Salvataggio
+                scanRepository.addResult(result);
+
+                // 6️⃣ EventBus notifica UI
+                EventBus.getInstance().post(result);
+            }
+        });
+    }
+
+    // =============================
+    // SYNC
+    // =============================
+
+    public void saveSession() {
+        scanRepository.saveSession();
+    }
+
+    public void syncNow() {
+        syncQueueManager.processQueue();
     }
 }

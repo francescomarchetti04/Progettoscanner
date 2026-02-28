@@ -75,6 +75,9 @@ Come si vede il codice è diviso in diversi package
 - Recognition
     >Si occpua di riconoscere e trasformare in testo i dati rilevati dallo scan della carta
 - Model
-    >Gestisce i modelli di *carta*
-    
+    >Gestisce i modelli di
+     > -*carta*
+     > -*stato*
+     > -*Sessione*
+
 ## Root del telefono {#Root}
