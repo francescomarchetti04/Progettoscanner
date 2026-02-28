@@ -4,27 +4,27 @@
 
 - [SACANNER PER CARTE COLLEZIONABILI](#sacanner-per-carte-collezionabili)
   - [INDICE](#indice)
-  - [!\[\[introduzione\]\]](#introduzione)
+  - [\[\[introduzione\]\]](#introduzione)
   - [Software](#software)
-  - [!\[\[Wikosoftware\]\]](#wikosoftware)
-  - [!\[\[SoftwarePc\]\]](#softwarepc)
-  - [!\[\[softwareEsp32\]\]](#softwareesp32)
-  - [!\[\[softwareArduino\]\]](#softwarearduino)
+  - [\[\[Wikosoftware\]\]](#wikosoftware)
+  - [\[\[SoftwarePc\]\]](#softwarepc)
+  - [\[\[softwareEsp32\]\]](#softwareesp32)
+  - [\[\[softwareArduino\]\]](#softwarearduino)
 
-![[introduzione]]
+[[introduzione]]
 ---
 
 ## Software 
 
-![[Wikosoftware]]
+[[Wikosoftware]]
 ---
 
-![[SoftwarePc]]
+[[SoftwarePc]]
 ---
 
-![[softwareEsp32]]
+[[softwareEsp32]]
 ---
 
-![[softwareArduino]]
+[[softwareArduino]]
 ---
 
