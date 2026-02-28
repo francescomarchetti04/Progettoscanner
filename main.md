@@ -6,10 +6,10 @@
 - [INDICE](#indice)
   - [Software](#software)
 
-![[introduzione.md]]
+![[introduzione]]
 
 ## Software 
-![[WikoSoftware.md]]
-![[SoftwarePc.md]]
-![[softwareArduino.md]]
-![[softwarEsp32.md]]
+![[WikoSoftware]]
+![[SoftwarePc]]
+![[softwareArduino]]
+![[softwarEsp32]]
