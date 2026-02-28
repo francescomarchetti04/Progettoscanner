@@ -1,30 +1,28 @@
-# SACANNER PER CARTE COLLEZIONABILI 
+# SCANNER PER CARTE COLLEZIONABILI 
 
 ## INDICE 
+- [[introduzione|1. Introduzione]]
+- [2. Software](#software)
+	- [[Wikosoftware|2.1 Wiko Software]]
+	- [[SoftwarePc|2.2 Software PC]]
+	- [[softwareEsp32|2.3 Software ESP32]]
+	- [[softwareArduino|2.4 Software Arduino]]
 
-- [SACANNER PER CARTE COLLEZIONABILI](#sacanner-per-carte-collezionabili)
-  - [INDICE](#indice)
-  - [\[\[introduzione\]\]](#introduzione)
-  - [Software](#software)
-  - [\[\[Wikosoftware\]\]](#wikosoftware)
-  - [\[\[SoftwarePc\]\]](#softwarepc)
-  - [\[\[softwareEsp32\]\]](#softwareesp32)
-  - [\[\[softwareArduino\]\]](#softwarearduino)
+---
 
-[[introduzione]]
+![[introduzione]]
 ---
 
 ## Software 
 
-[[Wikosoftware]]
+![[Wikosoftware]]
 ---
 
-[[SoftwarePc]]
+![[SoftwarePc]]
 ---
 
-[[softwareEsp32]]
+![[softwareEsp32]]
 ---
 
-[[softwareArduino]]
+![[softwareArduino]]
 ---
-
