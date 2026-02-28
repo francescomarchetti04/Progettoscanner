@@ -1,0 +1,16 @@
+problemi con interfaccia audio event listenr
+
+mancan classi
+core/
+ - bus event.java
+ - AppLifecycleManager.java
+storage/
+    -ScanRepository.java
+    - SyncQueueManager.java
+    -LocalStorageManager.java
+model/
+    -ScanSession.java
+recognition/
+    -OcrEngine.java
+
+aggiungi watchdog per crash

@@ -1,18 +1,18 @@
-# SCANNER PER CARTE COLLEZIONABILI 
+# SCANNER PER CARTE COLLEZIONABILI
 
 ## INDICE 
-- [[introduzione]]
-- [[Wikosoftware]]
-- [[SoftwarePc]]
-- [[softwareEsp32]]
-- [[softwareArduino]]
+* [[introduzione]]
+* [[Wikosoftware]]
+* [[SoftwarePc]]
+* [[softwareEsp32]]
+* [[softwareArduino]]
 
----
+***
 
 ## 1. Introduzione
 ![[introduzione]]
 
----
+***
 
 ## 2. Software 
 
