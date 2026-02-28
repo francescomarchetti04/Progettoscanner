@@ -1,0 +1,1 @@
+# Softwarre da installare su wiko 
