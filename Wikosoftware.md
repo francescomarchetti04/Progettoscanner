@@ -84,6 +84,8 @@ Come si vede il codice è diviso in diversi package
      > -*carta*
      > -*stato*
      > -*Sessione*
+- [WatchDog](#pkg_dog)
+    >modulo che previene i crash di sistema
 
 ### Package `core/` {#pkg_core}
 
@@ -277,5 +279,29 @@ Monitora memoria e stato sistema.
 #### `PerformanceMonitor.java` {#monitor}
 
 Misura tempo elaborazione frame e performance.
+
+### Package `watchdog/` {#pkg_dog}
+
+Ha 4 calssi. Servono per salvare in locale i dati scannerizzati.
+
+- [`WatchdogManager.java`](#dogmanager)
+- [`CameraHealthMonitor.java`](#healt)
+- [`CrashRecoveryManager.java`](#crashreco)
+
+#### `WatchdogManager.java`{#dogmanager}
+
+Controlla periodicamente:
+
+- Stato camera
+- Stato scanner
+- Se qualcosa si blocca → riavvia.
+
+#### `CameraHealthMonitor.java` {#healt}
+
+Controlla che i frame arrivino regolarmente.
+
+#### `CrashRecoveryManager.java` {#crashreco}
+
+Intercetta crash non gestiti e riavvia automaticamente l’app.
 
 ## Root del telefono {#root}
