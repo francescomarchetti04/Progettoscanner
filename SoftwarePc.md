@@ -1,1 +1,0 @@
-## software da installare su pc

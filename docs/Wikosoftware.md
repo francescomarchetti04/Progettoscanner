@@ -67,7 +67,7 @@ Ho creato un software modulare così che upgrade in futuro non comportino un lav
 Già dallo schema si vede questa modulartità.
 
 Questo software deve girare sul *Wiko Robby* per ora, in futuro penso che cambierò il telfono per uno più prestante.
-Si deve inserire il codice su ***Andorid studio***  e poi farlo girare sul telefono dopo un root completo per snellirlo dalle funzionalità  intuili. Per vendere le istruzioni per il Root del telefono [cliccare qui](#root).
+Si deve inserire il codice su ***Andorid studio***  e poi farlo girare sul telefono dopo un root completo per snellirlo dalle funzionalità  intuili. Per vendere le istruzioni per il Root del telefono [cliccare qui](root.md)
 
 ### Struttura
 
@@ -94,6 +94,12 @@ Come si vede il codice è diviso in diversi package
      > -*Sessione*
 - [WatchDog](#pkg_dog)
     >modulo che previene i crash di sistema
+- [hardware](#pkg_hw)
+    >Questo package serve a collegare Android ↔ ESP32 via USB seriale, permettendo:
+        > - Controllo duplicati globale
+        > - Persistenza su microSD
+        > - Sistema indipendente dal telefono
+        > - Gestione collezione universale
 
 ### Package `core/` {#pkg_core}
 
@@ -312,4 +318,112 @@ Controlla che i frame arrivino regolarmente.
 
 Intercetta crash non gestiti e riavvia automaticamente l’app.
 
-## Root del telefono {#root}
+### Package `hardware/` {#pkg_hw}
+
+Ha 4 calssi. Servono per salvare in locale i dati scannerizzati.
+
+- [`Esp32Manager.java`](#espmanager)
+- [`SerialCommunication.java`](#comm)
+- [`Esp32Protocol.java`](#protc)
+- [`Esp32Response.java`](#response)
+- [`Esp32ConnectionListener.java`](#esplistener)
+- [`UsbPermissionHelper.java`](#usbhelp)
+
+#### `Esp32Manager.java`{#espmanager}
+
+È il controller principale della comunicazione con ESP32.
+Serve per:
+
+- Inizializzare connessione USB
+- Inviare hash carta
+- Ricevere risposta NEW/DUPLICATE
+- Gestire stato connessione
+- Interfacciarsi con `ScannerController`
+
+È il ponte logico tra Android e hardware fisico.
+
+#### `SerialCommunication.java` {#comm}
+
+Gestisce la comunicazione seriale USB reale con ESP32.
+Serve per:
+
+- Apertura porta USB
+- Scrittura dati
+- Lettura asincrona dati
+- Gestione thread I/O
+- Gestione timeout
+
+Ruolo architetturale
+
+È il livello basso (low-level) della comunicazione.
+
+Separarlo da Esp32Manager rende il codice pulito e testabile.
+
+#### `Esp32Protocol.java` {#protc}
+
+Definisce il protocollo di comunicazione.
+Serve per:
+
+- Costruire pacchetti da inviare
+- Parsare risposte ricevute
+- Standardizzare formato dati
+
+```.md
+Esempio protocollo:
+
+CHECK:abc123hash\n
+```
+
+Risposta:
+
+```.md
+NEW\n
+DUPLICATE\n
+ERROR\n
+```
+
+Ruolo architetturale
+
+Evita di avere stringhe hardcoded sparse nel codice
+
+### `Esp32Response.java`{#response}
+
+Rappresenta una risposta strutturata dell’ESP32.
+
+Serve per:
+
+- Tipizzare risposta
+- Distinguere stati
+- Gestire errori
+- Passare oggetti puliti a `ScannerController`
+
+Esempio:
+
+```java
+public enum Status {
+    NEW,
+    DUPLICATE,
+    ERROR,
+    NOT_CONNECTED
+}
+```
+
+### `Esp32ConnectionListener.java` {#esplistener}
+
+nterfaccia callback per eventi di connessione.
+
+Serve per:
+
+- Notificare connessione attiva
+- Notificare disconnessione
+- Notificare errori USB
+- Aggiornare UI
+
+### `UsbPermissionHelper.java` {#usbhelp}
+
+Gestisce permessi USB su Android.
+Serve per:
+
+- Richiedere permessi al sistema
+- Gestire broadcast USB
+- Evitare crash per mancanza autorizzazione

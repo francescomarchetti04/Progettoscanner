@@ -1,0 +1,1 @@
+# Root del telefono

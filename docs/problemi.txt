@@ -1,0 +1,1 @@
+cambia nel pc software l'uso di javafx con swing
