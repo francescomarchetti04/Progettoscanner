@@ -16,7 +16,14 @@ YGOScanner/
 ├── camera/
 │   ├── CameraModule.java
 │   └── ImagePreprocessingModule.java
-│
+├──hardware/
+│   ├── Esp32Manager.java
+│   ├── SerialCommunication.java
+│   ├── Esp32Protocol.java 
+│   ├── Esp32Response.java 
+│   ├── Esp32ConnectionListener.java
+│   └── UsbPermissionHelper.java
+│      
 ├── audio/
 │   ├── AudioCaptureModule.java
 │   ├── SignalDecoderModule.java
@@ -51,6 +58,7 @@ YGOScanner/
     ├── ScannerState.java
     └── ScanSession.java
    
+
  ```
 
 ## Commenti sulle classi e la struttura
