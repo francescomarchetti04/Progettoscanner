@@ -1,6 +1,6 @@
-## Introduzione {# intro}
+# Introduzione
 
-### L'Idea
+## L'Idea
 
 L'idea del progetto nasce dalla necessità di stilare una lista completa di tutte le carte della mia collezione.
 
